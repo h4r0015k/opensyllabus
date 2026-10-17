@@ -230,6 +230,18 @@ export class Researcher {
       }
     }
 
+    // Ensure any module without sub-headings has at least one lesson
+    for (const mod of modules) {
+      if (mod.lessons.length === 0) {
+        mod.lessons.push({
+          order: 1,
+          title: mod.title,
+          learningPoints: [],
+        });
+        keyTopics.push(mod.title);
+      }
+    }
+
     // Fallback: If no structured headings detected, parse raw lines
     if (modules.length === 0) {
       const lines = rawText
